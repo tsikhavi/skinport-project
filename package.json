@@ -1,0 +1,46 @@
+{
+  "name": "skinport-project",
+  "version": "1.0.0",
+  "description": "skinport-project",
+  "homepage": "https://github.com/tsikhavi/skinport-project#readme",
+  "bugs": {
+    "url": "https://github.com/tsikhavi/skinport-project/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsikhavi/skinport-project.git"
+  },
+  "license": "MIT",
+  "author": "tsikhavi",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "concurrently \"pnpm run watch:build\" \"pnpm run watch:server\"",
+    "devr": "concurrently \"pnpm run watch:build\" \"pnpm run watch:server\" \"pnpm run start:redis\"",
+    "start": "node dist/index.js",
+    "watch:build": "tsc --watch --preserveWatchOutput",
+    "watch:server": "nodemon --watch dist/ --delay 1000ms --ext js,json --exec pnpm start",
+    "postinstall": "pnpm run build",
+    "start:redis": "pnpm exec env-cmd -f .env sh -c 'redis-server --port $REDIS_PORT'"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.17",
+    "axios": "^1.8.2",
+    "express": "^4.21.2",
+    "ioredis": "^5.6.0",
+    "postgres": "^3.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "concurrently": "^9.1.2",
+    "dotenv": "^16.4.7",
+    "env-cmd": "^10.1.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
